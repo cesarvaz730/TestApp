@@ -2,11 +2,13 @@ package com.example.encuentas.task;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.encuentas.entity.ClientePromo;
+import com.example.encuentas.fragment.EncuestaFragment;
 import com.example.encuentas.listener.DialogEncuesta;
 
 import org.springframework.http.ResponseEntity;
@@ -21,17 +23,22 @@ public class HttpRequestTask extends AsyncTask<Void, Void, ClientePromo> {
     Activity baseContext;
     Integer operation;
     ClientePromo clientePromo;
-    public HttpRequestTask(Activity baseContext, Integer operation, ClientePromo clientePromo) {
+    ProgressDialog dialog;
+    public HttpRequestTask(Activity baseContext, Integer operation, ClientePromo clientePromo, ProgressDialog dialog) {
         this.baseContext=baseContext;
         this.operation=operation;
         this.clientePromo=clientePromo;
+        this.dialog=dialog;
     }
+
+
 
     @Override
     protected ClientePromo doInBackground(Void... params) {
         String url = "http://10.0.2.2:8080/api/encuesta/";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
         try {
             Log.d("selec operation",operation+"");
             if(operation==1){
@@ -62,16 +69,15 @@ public class HttpRequestTask extends AsyncTask<Void, Void, ClientePromo> {
             if (result != null) {
                 if (result.getStatus().equals("1")) {
                     //está en el programa muestra encuesta
-                    new HttpRequestTaskEncuesta(baseContext,3,result).execute();
+                    new HttpRequestTaskEncuesta(baseContext,3,result,this.dialog).execute();
                 }
                 if (result.getStatus().equals("0")) {
                     //No está en el programa y ve hacia home
                 }
                 if (result.getStatus().equals("")) {
 
-
                     AlertDialog.Builder builder = new AlertDialog.Builder(baseContext);
-                    DialogInterface.OnClickListener dialogClickListener = new DialogEncuesta(result, baseContext);
+                    DialogInterface.OnClickListener dialogClickListener = new DialogEncuesta(result, baseContext,this.dialog);
                     builder.setMessage("Forme parte del Programa de Encuesta y reciba grandes beneficios como cliente preferencial, " +
                             "¿Desea formar parte del Programa?").setPositiveButton("Si", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
@@ -80,6 +86,7 @@ public class HttpRequestTask extends AsyncTask<Void, Void, ClientePromo> {
         }
         if(operation==2){
             Log.d("save option","resultsave");
+            new HttpRequestTaskEncuesta(baseContext,3,result,this.dialog).execute();
         }
 
     }

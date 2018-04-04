@@ -1,6 +1,10 @@
 package com.example.cvazquez.testapp;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,11 +21,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Int
     Integer vista=0;
     ImageButton home;
     private Fragment OurFragment;
+    private ProgressDialog dialog;
+
     @Override
     public void onClick(View v) {
         ImageButton imagen= (ImageButton) findViewById(R.id.imageHome);
         switch (vista) {
             case 0:
+              //  replaceFragment();
                    imagen.setBackgroundResource(R.mipmap.s2);
                     vista=1;
 
@@ -35,6 +42,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Int
                 vista=3;
                 break;
             case 3:
+
                 imagen.setBackgroundResource(R.mipmap.s7);
                 vista=4;
                 break;
@@ -47,9 +55,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Int
                 vista=6;
                 break;
             case 6:
-                Intent k = new Intent(Home.this, Encuesta.class);
-                startActivity(k);
-               // replaceFragment();
+                //Intent k = new Intent(Home.this, Encuesta.class);
+                //startActivity(k);
+               replaceFragment();
                 break;
         }
     }
@@ -63,12 +71,19 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Int
     }
 
     public void replaceFragment() {
-        OurFragment = new EncuestaFragment().newInstance();
+        Home x=this;
+        this.dialog = new ProgressDialog(x);
+        this.dialog.setMessage("Cargando Encuesta...");
+        this.dialog.setCancelable(false);
+        this.dialog.show();
+
+        OurFragment = new EncuestaFragment().newInstance((Activity)x,this.dialog );
 
         try {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_main, OurFragment, "tag").commit();
+            fragmentManager.beginTransaction().replace(R.id.content_main, OurFragment, "tag").addToBackStack("test").commit();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,6 +92,25 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Int
     }
     @Override
     public void onFragmentInteraction(String string) {
+        ImageButton imagen= (ImageButton) findViewById(R.id.imageHome);
         Log.d("listener","listener");
+        if(string.equals("init")){
+            imagen.setBackgroundColor(Color.WHITE);
+        }else{
+            imagen.setBackgroundResource(R.mipmap.screenshot_home);
+            vista=0;
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+            fragmentTransaction.remove(OurFragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ImageButton imagen= (ImageButton) findViewById(R.id.imageHome);
+        imagen.setBackgroundResource(R.mipmap.screenshot_home);
+        vista=0;
     }
 }

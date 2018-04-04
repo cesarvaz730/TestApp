@@ -1,6 +1,7 @@
 package com.example.encuentas.task;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -27,11 +28,12 @@ public class HttpRequestTaskEncuesta extends AsyncTask<Void, Void,EncuestaList[]
     Activity baseContext;
     Integer operation;
     ClientePromo clientePromo;
-
-    public HttpRequestTaskEncuesta(Activity baseContext, Integer operation, ClientePromo clientePromo) {
+    ProgressDialog dialog;
+    public HttpRequestTaskEncuesta(Activity baseContext, Integer operation, ClientePromo clientePromo, ProgressDialog dialog) {
         this.baseContext=baseContext;
         this.operation=operation;
         this.clientePromo=clientePromo;
+        this.dialog=dialog;
 
     }
 
@@ -61,15 +63,7 @@ public class HttpRequestTaskEncuesta extends AsyncTask<Void, Void,EncuestaList[]
         AdapterPregunta adapter = new AdapterPregunta(baseContext, new ArrayList<EncuestaList>(Arrays.asList(result)));
         ListView lv=(ListView) baseContext.findViewById(R.id.recipe_list_view);
         lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final int pos = position;
-                //CODIGO AQUI
-
-            }
-        });
+        this.dialog.dismiss();
 
     }
 

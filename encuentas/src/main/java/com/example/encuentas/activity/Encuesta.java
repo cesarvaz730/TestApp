@@ -13,7 +13,7 @@ public class Encuesta extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encuesta);
-        new HttpRequestTask(this,1,null).execute();
+        new HttpRequestTask(this,1,null, null).execute();
 
     }
 }
