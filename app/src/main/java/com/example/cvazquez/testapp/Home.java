@@ -71,7 +71,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener, Int
             fragmentManager.beginTransaction().replace(R.id.content_main, OurFragment, "tag").commit();
 
         } catch (Exception e) {
-            ;
+            e.printStackTrace();
         }
 
     }

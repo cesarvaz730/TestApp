@@ -18,9 +18,9 @@ public class EncuestaFragment extends Fragment implements View.OnClickListener{
 private EditText mEditText;
 private InteractionListener mListener;
 
-    public static EncuestaFragment newInstance() {
+    public  EncuestaFragment newInstance() {
         EncuestaFragment fragment = new EncuestaFragment();
-        return fragment;
+        return this;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
