@@ -18,10 +18,6 @@ public class EncuestaFragment extends Fragment implements View.OnClickListener{
 private EditText mEditText;
 private InteractionListener mListener;
 
-    public EncuestaFragment() {
-        // Required empty public constructor
-    }
-
     public static EncuestaFragment newInstance() {
         EncuestaFragment fragment = new EncuestaFragment();
         return fragment;
