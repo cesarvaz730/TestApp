@@ -39,13 +39,13 @@ public class HttpRequestTaskEncuesta extends AsyncTask<Void, Void,EncuestaList[]
 
     @Override
     protected  EncuestaList[] doInBackground(Void... params) {
-        String url = "http://10.0.2.2:8080/api/encuesta/";
+        String url = "https://testspring732.herokuapp.com/wsfake/api/encuesta/";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         try {
 
             if(operation==3){
-                url+="/"+clientePromo.getTipoEncuesta();
+                url+="/"+clientePromo.getTipo();
                 ResponseEntity<EncuestaList[]> result = restTemplate.getForEntity(url,EncuestaList[].class);
                 return result.getBody();
             }

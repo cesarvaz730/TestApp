@@ -8,7 +8,7 @@ public class ClientePromo {
     private String id;
     private String cliente;
     private String status;
-    private String tipoEncuesta;
+    private String tipo;
 
     public String getId() {
         return id;
@@ -34,11 +34,11 @@ public class ClientePromo {
         this.status = status;
     }
 
-    public String getTipoEncuesta() {
-        return tipoEncuesta;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTipoEncuesta(String tipoEncuesta) {
-        this.tipoEncuesta = tipoEncuesta;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

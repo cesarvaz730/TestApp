@@ -68,12 +68,12 @@ public class AdapterPregunta extends BaseAdapter {
         title.setText(position+1+".-"+dir.getPregunta());
 
         TextView a = (TextView) v.findViewById(R.id.a);
-        a.setText(dir.getOpciones()[0]);
+        a.setText(dir.getOpcion1());
 
         TextView b = (TextView) v.findViewById(R.id.b);
-        b.setText(dir.getOpciones()[1]);
+        b.setText(dir.getOpcion2());
         TextView c = (TextView) v.findViewById(R.id.c);
-        c.setText(dir.getOpciones()[2]);
+        c.setText(dir.getOpcion3());
 
         a.setOnClickListener(new ListenerRespuesta(a,b,c));
         b.setOnClickListener(new ListenerRespuesta(b,a,c));

@@ -5,24 +5,18 @@ package com.example.encuentas.entity;
  */
 
 public class EncuestaList {
-    private String id;
+    private Long id;
     private String pregunta;
-    private String[] opciones;
+    private String opcion1;
+    private String opcion2;
+    private String opcion3;
     private String tipo;
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,11 +28,35 @@ public class EncuestaList {
         this.pregunta = pregunta;
     }
 
-    public String[] getOpciones() {
-        return opciones;
+    public String getOpcion1() {
+        return opcion1;
     }
 
-    public void setOpciones(String[] opciones) {
-        this.opciones = opciones;
+    public void setOpcion1(String opcion1) {
+        this.opcion1 = opcion1;
+    }
+
+    public String getOpcion2() {
+        return opcion2;
+    }
+
+    public void setOpcion2(String opcion2) {
+        this.opcion2 = opcion2;
+    }
+
+    public String getOpcion3() {
+        return opcion3;
+    }
+
+    public void setOpcion3(String opcion3) {
+        this.opcion3 = opcion3;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

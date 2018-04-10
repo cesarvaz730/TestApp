@@ -35,7 +35,7 @@ public class HttpRequestTask extends AsyncTask<Void, Void, ClientePromo> {
 
     @Override
     protected ClientePromo doInBackground(Void... params) {
-        String url = "http://10.0.2.2:8080/api/encuesta/";
+        String url = "https://testspring732.herokuapp.com/wsfake/api/encuesta/";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
